@@ -10,10 +10,7 @@ export interface JwtPayload {
 
 export const generateToken = (payload: JwtPayload): string => {
     return jwt.sign(payload, ENV.JWT_SECRET, {
-        expiresIn:
-            typeof ENV.JWT_EXPIRES_IN === "string"
-                ? parseInt(ENV.JWT_EXPIRES_IN, 10)
-                : ENV.JWT_EXPIRES_IN
+        expiresIn: "24h"
     })
 }
 

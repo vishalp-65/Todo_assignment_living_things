@@ -19,7 +19,7 @@ export const ENV = {
 
     // JWT
     JWT_SECRET: process.env.JWT_SECRET || "vishalp",
-    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "24h",
+    JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
 
     // CORS
     CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:3000"
