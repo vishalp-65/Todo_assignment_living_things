@@ -10,6 +10,7 @@ import {
     BeforeUpdate
 } from "typeorm"
 import * as bcrypt from "bcrypt"
+import { Task } from "./task.entity"
 
 @Entity("users")
 export class User {
@@ -27,6 +28,9 @@ export class User {
 
     @Column()
     lastName: string
+
+    @OneToMany(() => Task, (task) => task.user)
+    tasks: Task[]
 
     @CreateDateColumn()
     createdAt: Date

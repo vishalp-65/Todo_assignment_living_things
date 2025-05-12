@@ -1,6 +1,7 @@
 // src/routes/index.ts
 import { Router } from "express"
 import authRoutes from "./auth.route"
+import taskRoutes from "./task.route"
 
 const router = Router()
 
@@ -15,5 +16,6 @@ router.get("/", (req, res) => {
 
 // Mount routes
 router.use("/auth", authRoutes)
+router.use("/task", taskRoutes)
 
 export default router

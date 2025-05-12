@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { ENV } from "./env"
 import { User } from "../entities/user.entity"
 import path from "path"
+import { Task } from "../entities/task.entity"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
     username: ENV.DB_USERNAME,
     password: ENV.DB_PASSWORD,
     database: ENV.DB_DATABASE,
-    entities: [User],
+    entities: [User, Task],
     synchronize: ENV.NODE_ENV === "development", // Set to false in production
     logging: ENV.NODE_ENV === "development",
     migrations: [path.join(__dirname, "../migrations/**/*.ts")]
