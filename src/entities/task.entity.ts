@@ -39,6 +39,7 @@ export class Task {
         default: "open"
     })
     status: string
+
     @Column({
         type: "enum",
         enum: taskPriority,

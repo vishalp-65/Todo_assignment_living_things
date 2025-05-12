@@ -121,4 +121,60 @@ export class TaskController {
             next(error)
         }
     }
+
+    exportToExcel = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        try {
+            if (!req.user) {
+                throw new Error("User not authenticated")
+            }
+
+            const buffer = await this.taskService.exportToExcel(req.user.id)
+
+            // Set response headers
+            res.setHeader(
+                "Content-Type",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+            res.setHeader(
+                "Content-Disposition",
+                "attachment; filename=tasks.xlsx"
+            )
+
+            // Send the file
+            res.status(httpStatus.OK).send(buffer)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    importTasks = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
+        try {
+            if (!req.user) {
+                throw new Error("User not authenticated")
+            }
+
+            if (!req.file) {
+                throw ApiError.badRequest("File is required")
+            }
+
+            const tasks = await this.taskService.importFromExcel(
+                req.user.id,
+                req.file
+            )
+
+            res.status(httpStatus.OK).json(
+                successResponse("Tasks imported successfully", tasks)
+            )
+        } catch (error) {
+            next(error)
+        }
+    }
 }
